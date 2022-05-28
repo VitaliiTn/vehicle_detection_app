@@ -32,26 +32,25 @@ def load_image():
         return None
 
 # загружает нейронную сеть
+
 def load_model():
     model = tensorflow.keras.models.load_model('CNN_mobilenet_save.pkl')
     return model
 
 # выполняет предварительную обработку изображения для подготовки к распознаванию
+
 def preprocess_image(img):
     img = np.array(img); # PIL to BGR
     img=cv2.cvtColor(img, cv2.COLOR_BGR2RGB)        # model was trained on RGB images so convert to RGB
     img=cv2.resize(img, (75,75))                    # model was trained on images of size 64  X 64 X 3 so resize the images
     img=img/255                                     # model was trained with pixel value scalled between -1 to +1 so convert the pixel range    
     img=np.expand_dims(img, axis=0)                 # model predict expects the input to have dimension (batch_size, width, height, bands)
-    #img = img.resize((75, 75))
-    #x = image.img_to_array(img)
-    #x = np.expand_dims(x, axis=0)
-    #x = preprocess_input(x)
+    
     return img
 
 # печатает названия и вероятность для ТОП 3 классов, выданных моделью
 def print_predictions(prediction):
-    if np.round(prediction) == 1:                       # find the index of the column with the highest probability
+    if np.round(prediction) == 1:                       
         st.write("Це транспортний засіб з імовірністю ", prediction[0][0])
     else:
         st.write("Це не транспортний засіб з імовірністю ", 1-prediction[0][0])    
