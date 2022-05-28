@@ -12,7 +12,7 @@ import io
 import streamlit as st
 from PIL import Image
 import numpy as np
-from tensorflow import keras
+import tensorflow
 import cv2
 
 
@@ -33,7 +33,7 @@ def load_image():
 
 # загружает нейронную сеть
 def load_model():
-    model = keras.models.load_model('CNN_mobilenet_save.pkl')
+    model = tensorflow.keras.models.load_model('CNN_mobilenet_save.pkl')
     return model
 
 # выполняет предварительную обработку изображения для подготовки к распознаванию
